@@ -16,3 +16,6 @@ class Post(models.Model):
         auto_now_add=True, db_index=True
     )
 
+class Tags(models.Model):
+    title = models.CharField(max_length=100)
+    posts = models.ManyToManyField(Post)
