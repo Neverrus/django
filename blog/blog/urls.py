@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path
+
+from blog.views import register
 from posts.views import posts_index
 from profiles.views import profiles_index
 
@@ -23,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profiles/', profiles_index),
     path('', posts_index),
+    path('register/', register)
 
 
 ]
