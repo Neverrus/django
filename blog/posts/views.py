@@ -1,8 +1,9 @@
 import logging
-
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from posts.models import Post
+from posts.forms import PostCreate
 logger = logging.getLogger(__name__)
 
 
@@ -21,3 +22,28 @@ def posts_index(request):
     return HttpResponse(result)
     #posts = Post.objects.all()
     #return HttpResponse([", ".join([x.slug for x in posts])])
+
+def create_post(request):
+    if request.method == "POST":
+        form = PostCreate(request.POST)
+        if form.is_valid():
+            # Process validated data
+            logger.info(form.cleaned_data)
+            user = User(
+                author=form.CharField['email'],
+                title=form.CharField['title'],
+                slug=form.SlugField['slug'],
+                text=form.CharField['text']
+            )
+            user.save()
+            return redirect("posts/")
+    else:
+        form = PostCreate()
+    return render(request, "posts.html", {"form": form})
+
+"""
+                username=model.CharField['email'],
+                title=model.CharField['title'],
+                slug=model.SlugField['slug'],
+                text=model.TextField['slug']
+"""
