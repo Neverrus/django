@@ -29,13 +29,13 @@ def create_post(request):
         if form.is_valid():
             # Process validated data
             logger.info(form.cleaned_data)
-            user = User(
-                author=form.CharField['email'],
-                title=form.CharField['title'],
-                slug=form.SlugField['slug'],
-                text=form.CharField['text']
-            )
-            user.save()
+            post = Post(
+                author=request.user,
+                title=form.cleaned_data['title'],
+                image=form.cleaned_data['image'],
+                slug=form.cleaned_data['slug'],
+                text=form.cleaned_data['text'])
+            post.save()
             return redirect("posts/")
     else:
         form = PostCreate()
