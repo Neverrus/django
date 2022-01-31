@@ -36,7 +36,7 @@ def create_post(request):
                 slug=form.cleaned_data['slug'],
                 text=form.cleaned_data['text'])
             post.save()
-            return redirect("posts/")
+            return redirect("/")
     else:
         form = PostCreate()
     return render(request, "posts.html", {"form": form})
