@@ -18,15 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 
 from blog.views import register
-from posts.views import posts_index, create_post
+from posts.views import post_list, create_post
 from profiles.views import profiles_index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('profiles/', profiles_index),
-    path('', posts_index),
-    path('register/', register),
-    path('posts/', create_post),
+    path('', post_list, name="home"),
+    path('posts/create/', create_post, name="create_post"),
+    path('profiles/', profiles_index, name="profiles_index"),
+    path('register/', register, name="register"),
     path("api/", include("api.urls", namespace="api")),
 ]
 

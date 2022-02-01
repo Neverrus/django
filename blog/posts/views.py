@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from posts.models import Post
 from posts.forms import PostCreate
+
 logger = logging.getLogger(__name__)
 
 
@@ -24,26 +25,27 @@ def posts_index(request):
     #return HttpResponse([", ".join([x.slug for x in posts])])
 
 def create_post(request):
-    if request.method == "POST":
-        form = PostCreate(request.POST)
-        if form.is_valid():
-            # Process validated data
-            logger.info(form.cleaned_data)
-            post = Post(
-                author=request.user,
-                title=form.cleaned_data['title'],
-                image=form.cleaned_data['image'],
-                slug=form.cleaned_data['slug'],
-                text=form.cleaned_data['text'])
-            post.save()
-            return redirect("/")
-    else:
-        form = PostCreate()
-    return render(request, "posts.html", {"form": form})
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = PostCreate(request.POST)
+            if form.is_valid():
+                # Process validated data
+                logger.info(form.cleaned_data)
+                post = Post(
+                    author=request.user,
+                    title=form.cleaned_data['title'],
+                    image=form.cleaned_data['image'],
+                    slug=form.cleaned_data['slug'],
+                    text=form.cleaned_data['text'])
+                post.save()
+                return redirect("/")
+        else:
+            form = PostCreate()
+        return render(request, "posts/create.html", {"form": form})
+    return HttpResponse("You don't authenticated!")
 
-"""
-                username=model.CharField['email'],
-                title=model.CharField['title'],
-                slug=model.SlugField['slug'],
-                text=model.TextField['slug']
-"""
+def post_list(request):
+    if request.user.is_anonymous:
+        return redirect("admin:index")
+    posts = Post.objects.filter(author=request.user).order_by("-id")
+    return render(request, "posts/list.html", {"posts": posts})
