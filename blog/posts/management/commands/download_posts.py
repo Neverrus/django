@@ -17,12 +17,12 @@ class Command(BaseCommand):
             response = requests.get(url)
             filename.write_bytes(response.content)
 
-        load_file('https://raw.githubusercontent.com/weibak/django/master/blog/posts.csv', 'load_csv_posts_file.csv')
+        load_file('')
 
-        with open(settings.BASE_DIR / "load_csv_posts_file.csv", "r") as file:
+        with open(settings.BASE_DIR / "", "r") as file:
             reader = csv.reader(file)
             for row in reader:
-                user = User.objects.filter(username=row[0]).first()
+                user, _ = User.objects.get_or_create(username=row[0])
                 Post.objects.create(
                     author=user,
                     title=row[1],
