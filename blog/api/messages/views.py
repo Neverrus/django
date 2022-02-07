@@ -5,7 +5,7 @@ from homework.models import Message
 
 class MessageViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows messages to be viewed.
+    API endpoint that allows homework to be viewed.
     """
 
     queryset = Message.objects.all().order_by("-created_at")

@@ -6,7 +6,7 @@ app_name = "api"
 
 router = routers.DefaultRouter()
 router.register(r"posts", PostViewSet)
-router.register(r"messages", MessageViewSet)
+router.register(r"homework", MessageViewSet)
 
 
 urlpatterns = [

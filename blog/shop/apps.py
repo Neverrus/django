@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class Hw01Config(AppConfig):
+class ShopConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'hw15'
+    name = 'shop'

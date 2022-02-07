@@ -17,9 +17,9 @@ class TestMessagesApi:
 
         client.force_login(user)
 
-        response = client.get("/api/messages/")
+        response = client.get("/api/homework/")
         assert response.status_code == 200
         assert response.data[0]["title"] == "Test"
 
-        response = client.post("/api/messages/", data={"title": "Test", "text": "test"})
+        response = client.post("/api/homework/", data={"title": "Test", "text": "test"})
         assert response.status_code == 201

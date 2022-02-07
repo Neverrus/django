@@ -4,7 +4,7 @@ from django.db import models
 
 class Message(models.Model):
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="messages"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="homework"
     )
 
     title = models.CharField(max_length=200)

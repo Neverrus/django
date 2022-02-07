@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'tests',
     'profiles',
     'homework',
+    'shop',
 ]
 
 
