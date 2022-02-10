@@ -18,9 +18,9 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from blog.views import register
-from posts.views import post_list, create_post
+from posts.views import post_list, create_post, post_admin, post_view
 from profiles.views import profiles_index
-from shop.views import product_list
+from shop.views import product_list, product_details_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,12 @@ urlpatterns = [
     path('profiles/', profiles_index, name="profiles_index"),
     path('register/', register, name="register"),
     path("api/", include("api.urls", namespace="api")),
-    path("shop/", product_list, name="product_list")
+    path(
+        "product/<int:product_id>/", product_details_view, name="product_details_view"
+    ),
+    path("products/", product_list, name="product_list"),
+    path("post/admin/", post_admin, name="post_admin"),
+    path("post/<str:slug>/", post_view, name="post_view"),
 ]
 
 if settings.DEBUG:

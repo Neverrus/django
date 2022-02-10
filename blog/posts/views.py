@@ -49,3 +49,13 @@ def post_list(request):
         return redirect("admin:index")
     posts = Post.objects.filter(author=request.user).order_by("-id")
     return render(request, "posts/list.html", {"posts": posts})
+
+def post_admin(request):
+    if request.user.is_anonymous:
+        return redirect("admin:index")
+    posts = Post.objects.filter(author=request.user).order_by("-id")
+    return render(request, "posts/admin.html", {"posts": posts})
+
+def post_view(request, slug):
+    post = Post.objects.get(slug=slug)
+    return render(request, "posts/details.html", {"post": post})
