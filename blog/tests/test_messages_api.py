@@ -12,7 +12,9 @@ class TestMessagesApi:
     def test_profiles_index_view(self):
         client = Client()
 
-        user = User.objects.create(username="test", email="test@test.com", password="test")
+        user = User.objects.create(
+            username="test", email="test@test.com", password="test"
+        )
         Message.objects.create(author=user, title="Test", text="test")
 
         client.force_login(user)

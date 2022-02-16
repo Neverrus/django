@@ -23,11 +23,12 @@ from profiles.views import profiles_index
 from shop.views import product_list, product_details_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', post_list, name="home"),
-    path('posts/create/', create_post, name="create_post"),
-    path('profiles/', profiles_index, name="profiles_index"),
-    path('register/', register, name="register"),
+    path("admin/django-rq/", include("django_rq.urls")),
+    path("admin/", admin.site.urls),
+    path("", post_list, name="home"),
+    path("posts/create/", create_post, name="create_post"),
+    path("profiles/", profiles_index, name="profiles_index"),
+    path("register/", register, name="register"),
     path("api/", include("api.urls", namespace="api")),
     path(
         "product/<int:product_id>/", product_details_view, name="product_details_view"

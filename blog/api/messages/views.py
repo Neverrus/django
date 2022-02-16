@@ -12,8 +12,8 @@ class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageModelSerializer
     permission_classes = []
 
-    #def perform_create(self, serializer):
-        #serializer.validated_data["author"] = self.request.user
-        #serializer.save()
+    # def perform_create(self, serializer):
+    # serializer.validated_data["author"] = self.request.user
+    # serializer.save()
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

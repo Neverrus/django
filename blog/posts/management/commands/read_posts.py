@@ -6,17 +6,17 @@ from posts.models import Post
 
 logger = logging.getLogger(__name__)
 
+
 class Command(BaseCommand):
     help = "Print Posts"
 
-    #def handle(self, *args, **options):
-        #for post in  Post.objects.all():
-            #logger.info(post)
-            #logger.info(f"Post #{post.id} - {post.title}")
+    # def handle(self, *args, **options):
+    # for post in  Post.objects.all():
+    # logger.info(post)
+    # logger.info(f"Post #{post.id} - {post.title}")
 
     def handle(self, *args, **options):
         with open(settings.BASE_DIR / "posts.csv", "r") as file:
             reader = csv.reader(file)
             for row in reader:
                 logger.info(row)
-
