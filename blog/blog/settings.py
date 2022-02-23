@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "crispy_forms",
     "crispy_bootstrap5",
     "django_rq",
@@ -105,6 +106,15 @@ RQ_QUEUES = {
         "DB": 0,
         "DEFAULT_TIMEOUT": 360,
     },
+}
+
+REST_FRAMEWORK = {
+   "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+   "DEFAULT_AUTHENTICATION_CLASSES": [
+       "rest_framework.authentication.BasicAuthentication",
+       "rest_framework.authentication.SessionAuthentication",
+   ],
+   "PAGE_SIZE": 10,
 }
 
 

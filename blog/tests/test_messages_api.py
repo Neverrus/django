@@ -9,7 +9,7 @@ from homework.models import Message
 
 @pytest.mark.django_db
 class TestMessagesApi:
-    def test_profiles_index_view(self):
+    def test_messages_index_view(self):
         client = Client()
 
         user = User.objects.create(
@@ -19,9 +19,9 @@ class TestMessagesApi:
 
         client.force_login(user)
 
-        response = client.get("/api/homework/")
+        response = client.get("/api/messages/")
         assert response.status_code == 200
-        assert response.data[0]["title"] == "Test"
+        assert response.data["results"][0]["title"] == "Test"
 
-        response = client.post("/api/homework/", data={"title": "Test", "text": "test"})
+        response = client.post("/api/messages/", data={"title": "Test", "text": "test"})
         assert response.status_code == 201
